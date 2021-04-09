@@ -1,0 +1,12 @@
+[Unit]
+Description=File manager daemon
+After=multi-user.target
+
+[Service]
+Restart=always
+RestartSec=30
+WorkingDirectory=/home/vova/PycharmProjects/DR_WEB_text
+ExecStart=/home/vova/PycharmProjects/DR_WEB_text/venv/bin/python /home/vova/PycharmProjects/DR_WEB_test/api/__main__.py
+
+[Install]
+WantedBy=multi-user.target
