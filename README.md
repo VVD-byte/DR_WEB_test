@@ -7,32 +7,32 @@
 
 ##Создание базы данных
 Устанавливаете postgresql <br />
-Запускаете его - ```sudo systemctl start postgresql```
-Заходите под пользователем postgres - ```sudo su postgres```
-Заходите в postgresql - ```psql```
-Создаете нового пользователя - ```CREATE USER wanuser;```
-Задаем пользователю пароль - ```ALTER USER wanuser WITH PASSWORD 'mysecretpassword';```
-Создаем миграции ```alembic revision --message="Initial" --autogenerate```
-Применяем миграции - ```alembic upgrade head```
+Запускаете его - ```sudo systemctl start postgresql```<br />
+Заходите под пользователем postgres - ```sudo su postgres```<br />
+Заходите в postgresql - ```psql```<br />
+Создаете нового пользователя - ```CREATE USER wanuser;```<br />
+Задаем пользователю пароль - ```ALTER USER wanuser WITH PASSWORD 'mysecretpassword';```<br />
+Создаем миграции ```alembic revision --message="Initial" --autogenerate```<br />
+Применяем миграции - ```alembic upgrade head```<br />
 
 ##Установка демона
-```git clone https://github.com/VVD-byte/DR_WEB_test``` - клонируем приложение с гита
-```python -m venv venv``` - создание вертуального окружения
-```source venv/bin/activate``` - вход в виртуальное окружение
-```pip install DR_WEB_test/requirements.txt``` - установка необходимых зависимостей
-```sudo mv DR_WEB_test/filemanager.service /etc/systemd/system/```
-```sudo systemctl daemon-reload```
-```sudo systemctl enable filemanager.service```
-```sudo systemctl start filemanager.service```
+```git clone https://github.com/VVD-byte/DR_WEB_test``` - клонируем приложение с гита<br />
+```python -m venv venv``` - создание вертуального окружения<br />
+```source venv/bin/activate``` - вход в виртуальное окружение<br />
+```pip install DR_WEB_test/requirements.txt``` - установка необходимых зависимостей<br />
+```sudo mv DR_WEB_test/filemanager.service /etc/systemd/system/```<br />
+```sudo systemctl daemon-reload```<br />
+```sudo systemctl enable filemanager.service```<br />
+```sudo systemctl start filemanager.service```<br />
 
 ## Установка с Docker
-```git clone https://github.com/VVD-byte/DR_WEB_test``` - клонируем приложение с гита
-```sudo docker build -t drweb-test .``` - создаем докер
-```sudo docker run drweb-test``` - запускаем докер
+```git clone https://github.com/VVD-byte/DR_WEB_test``` - клонируем приложение с гита<br />
+```sudo docker build -t drweb-test .``` - создаем докер<br />
+```sudo docker run drweb-test``` - запускаем докер<br />
 
 ## Запуск без Docker и демонов
 Запуск - ```python -m api``` <br />
 
 
 ## Примеры запросов
-Пример взаимодействия с api лежит в файле requests.txt
+Пример взаимодействия с api лежит в файле requests.txt<br />
