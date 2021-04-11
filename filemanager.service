@@ -6,7 +6,7 @@ After=multi-user.target
 Restart=always
 RestartSec=30
 WorkingDirectory=/home/vova/PycharmProjects/DR_WEB_text
-ExecStart=/home/vova/PycharmProjects/DR_WEB_text/venv/bin/python /home/vova/PycharmProjects/DR_WEB_test/api/__main__.py
+ExecStart=/home/vova/PycharmProjects/DR_WEB_test/venv/bin/python -m api
 
 [Install]
 WantedBy=multi-user.target

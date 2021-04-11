@@ -5,19 +5,20 @@ import time
 import json
 import os
 from aiohttp import web
-from .schema import DBMixin
+from .schema import DBConnect
 
 
 def serialise(func):
     async def warp(*args, **kwargs):
         return web.Response(text=json.dumps(await func(*args, **kwargs)))
+
     return warp
 
 
-class WorkWithFile(View, DBMixin):
+class WorkWithFile(View):
     async def get(self):
         hash_ = self.request.query.get('hash', '')
-        if await self.select(hash=hash_, token=self.request.query.get('token', '')):
+        if await self.request.app.get('db_controller').select(hash=hash_, token=self.request.query.get('token', '')):
             return web.FileResponse(f'store/{hash_[0:2]}/{hash_}')
         return web.Response(text=json.dumps({'error': 'Premission denied'}))
 
@@ -32,7 +33,7 @@ class WorkWithFile(View, DBMixin):
                     await create_if_not_exist_dir(hash_[0:2])
                     with open(f'./store/{hash_[0:2]}/{hash_}', 'wb') as t:
                         t.write(await obj.read())
-                    await self.insert(name=obj.filename, hash=hash_, time=time_)
+                    await self.request.app.get('db_controller').insert(name=obj.filename, hash=hash_, time=time_)
                     return {'hash': hash_}
         return {'error': 'bad data'}
 
@@ -40,7 +41,7 @@ class WorkWithFile(View, DBMixin):
     async def delete(self):
         hash_ = self.request.query.get('hash')
         token = self.request.query.get('token', '')
-        if await chek_file(hash_) and await self.delete_row(hash=hash_, token=token):
+        if await chek_file(hash_) and await self.request.app.get('db_controller').delete_row(hash=hash_, token=token):
             os.remove(f'store/{hash_[0:2]}/{hash_}')
         else:
             return {'error': 'file not found'}

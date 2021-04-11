@@ -7,7 +7,6 @@ BASE_DIR = Path(__file__).parent.parent.absolute()
 
 
 class Settings:
-
     def __init__(self, settings):
         self.pg_config: PgConfig = PgConfig(**settings.get('postgres'))
 

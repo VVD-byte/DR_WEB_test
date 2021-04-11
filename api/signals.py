@@ -5,6 +5,7 @@ from aiohttp.web_app import Application
 from asyncpgsa import create_pool
 
 from api.settings import Settings
+from .schema import DBConnect
 
 
 logger = logging.getLogger(__name__)
@@ -25,3 +26,9 @@ async def pg_cleanup_context(app: Application) -> Generator:
         app['postgres'] = pool
         yield
 
+
+async def db_controller_context(app: Application):
+    pg = app['postgres']
+    db_controller = DBConnect(pg)
+    app['db_controller'] = db_controller
+    yield

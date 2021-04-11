@@ -3,17 +3,17 @@ import os
 from pathlib import Path
 
 from aiohttp import web
-from api.app import WorkWithFile, Token
+from api.views import WorkWithFile, Token
 from asyncpgsa import pg
 
 from api.settings import Settings, BASE_DIR
-from api.signals import pg_cleanup_context
+from api.signals import pg_cleanup_context, db_controller_context
 
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    if not os.path.exists('./store'):
-        os.mkdir('./store')
+    if not os.path.exists('../store'):
+        os.mkdir('../store')
 
     app = web.Application()
 
@@ -24,6 +24,7 @@ def main():
     app.router.add_view('/', WorkWithFile)
     app.router.add_view('/token', Token)
     app.cleanup_ctx.append(pg_cleanup_context)
+    app.cleanup_ctx.append(db_controller_context)
     web.run_app(app)
 
 
