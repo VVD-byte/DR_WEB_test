@@ -1,0 +1,22 @@
+version: "0.1"
+
+services:
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: "file_manager"
+      POSTGRES_USER: "file_manager"
+      POSTGRES_PASSWORD: "mysecretpassword"
+    ports:
+      - 5432:5432
+    networks:
+      file_manager:
+        aliases:
+          - "postgres"
+
+
+networks:
+  file_manager:
+    external:
+      name: file_manager
